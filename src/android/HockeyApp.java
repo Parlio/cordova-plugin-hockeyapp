@@ -4,7 +4,9 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 
+import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
+import net.hockeyapp.android.UpdateManager;
 
 public class HockeyApp extends CordovaPlugin {
 
@@ -16,6 +18,8 @@ public class HockeyApp extends CordovaPlugin {
         if (action.equals("start")) {
             token = args.optString(0);
             FeedbackManager.register(cordova.getActivity(), token, null);
+            UpdateManager.register(cordova.getActivity(), token);
+            CrashManager.register(cordova.getActivity(), token);
             initialized = true;
             callbackContext.success();
             return true;
